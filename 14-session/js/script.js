@@ -23,21 +23,21 @@ const koders = [
 // document.body.appendChild(ul)
 // console.log(ul)
 
-const ul = document.createElement('ul');
+// const ul = document.createElement('ul');
 
-const createNode = (name) => {
+// const createNode = (name) => {
   
-  const li = document.createElement('li');
-  const koderName = document.createTextNode(name);
-  li.appendChild(koderName);
-  ul.appendChild(li);
-  document.body.appendChild(ul);
-};
+//   const li = document.createElement('li');
+//   const koderName = document.createTextNode(name);
+//   li.appendChild(koderName);
+//   ul.appendChild(li);
+//   document.body.appendChild(ul);
+// };
 
 
-koders.forEach((item) => {
-  createNode(item)
-});
+// koders.forEach((item) => {
+//   createNode(item)
+// });
 
 
 
@@ -199,6 +199,9 @@ let arrayPersons = [
 ];
 
 
+
+
+
 const creartTable = () => {
 console.log('seeeaea')
     const table = document.createElement('table');
@@ -256,7 +259,74 @@ console.log('seeeaea')
     });
 };
 
-creartTable()
+// creartTable();
+
+const divVariable = document.createElement('div');
+
+// const textDiv = document.createTextNode('este es un div con un metodo');
+// div.appendChild(textDiv);
+
+const tezsto = 'este es un string de una variable'
+
+divVariable.textContent = tezsto;
+
+divVariable.innerHTML = '<p>Este es un parrago</p>'
+
+document.body.appendChild(divVariable);
+
+
+const list = document.getElementsByTagName('li');
+console.log(list)
+
+// const element = document.getElementById('first');
+
+// const classList = document.getElementsByClassName('element')
+// console.log(classList)
+
+
+// const selector = document.querySelector('table')
+// const selector = document.querySelector('.element')
+// const selector = document.querySelector('#element')
+
+const ul = document.querySelector('ul');
+console.log(ul)
+
+arrayPersons.forEach((persona) => {
+    const name = document.createElement('li');
+    name.textContent = persona.name;
+
+    if(persona.vaccinated){
+        // pintar las letras verdes
+        name.classList.add('vaccinated');
+    }
+
+    ul.appendChild(name);
+})
+
+
+
+
+// Crear una tabla con el arreglo de mentores
+
+// name | html |  css | javascript | react | promedio
+
+
+// pintar la celda de la columna 'promedio' del respectivo color:
+
+// > 9 se pinta color verde
+// < 9 se pinta color naranja
+// < 6 se pinta de rolo
+
+
+
+
+
+
+
+
+
+
+
 
 
 
