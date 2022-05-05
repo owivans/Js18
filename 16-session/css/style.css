@@ -1,0 +1,28 @@
+body {
+    height: 100vh;
+    display: flex;
+    align-content: center;
+    background: #3b3b51!important;
+    color: #fff!important;
+}
+.main {
+    width: 400px;
+    margin: auto;
+    height: 400px;
+    align-items: center;
+}
+
+.counter {
+    display: flex;
+    justify-content: center;
+    font-size: 100px;
+}
+.content-button{
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.red {
+    color: red
+}
