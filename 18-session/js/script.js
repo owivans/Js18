@@ -15,6 +15,27 @@
 //     }
 // ]
 
+
+const onPostRequest = (person) => {
+
+    const xhr = new XMLHttpRequest();
+    console.log(xhr)
+    xhr.addEventListener('readystatechange', () => {
+        if(xhr.readyState === 4){
+            if(xhr.status === 200){
+                xhr.response
+            }
+        }
+    });
+
+    const URL_FIREBASE = 'https://koders-88d77-default-rtdb.firebaseio.com/equipoIvan.json';
+
+    xhr.open('POST', URL_FIREBASE );
+    xhr.send(JSON.stringify(person));
+};
+
+
+
 const inputs = document.querySelectorAll('.form-control');
 const button = document.querySelector('#createPerson');
 const ul = document.querySelector('ul');
@@ -34,6 +55,9 @@ inputs.forEach((input) => {
 
 button.addEventListener('click', (event)=>{
     personList.push(person);
+    console.log(personList)
+    // aqui se tiene que hacer la peticion post
+    onPostRequest([person]);
     person = {};
     renderList()
 });
