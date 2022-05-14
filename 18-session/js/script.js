@@ -16,6 +16,7 @@
 // ]
 
 
+
 const onPostRequest = (person) => {
 
     const xhr = new XMLHttpRequest();
@@ -23,7 +24,7 @@ const onPostRequest = (person) => {
     xhr.addEventListener('readystatechange', () => {
         if(xhr.readyState === 4){
             if(xhr.status === 200){
-                xhr.response
+                onGuestRequest();
             }
         }
     });
@@ -33,6 +34,55 @@ const onPostRequest = (person) => {
     xhr.open('POST', URL_FIREBASE );
     xhr.send(JSON.stringify(person));
 };
+
+const onGuestRequest = () => {
+    const xhr = new XMLHttpRequest();
+    console.log(xhr)
+    xhr.addEventListener('readystatechange', () => {
+        const personList = [];
+        if(xhr.readyState === 4){
+            if(xhr.status === 200){
+                const response = JSON.parse(xhr.response);
+                console.log(response)
+                for(let property in response) {
+                    // console.log(response[property]);
+                    const persona = {
+                        id: property,
+                        ...response[property],
+                    }
+                    personList.push(persona);
+                }
+
+                console.log(personList, 'personList')
+                renderList(personList);
+            }
+        }
+    });
+    // spread operator 'copia' el contenido de un objeto omde una rreglo
+
+    const URL_FIREBASE = 'https://koders-88d77-default-rtdb.firebaseio.com/equipoIvan.json';
+
+    xhr.open('GET', URL_FIREBASE );
+    xhr.send();
+};
+const onDeleteRequest = (idPerson) => {
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('readystatechange', () => {
+        if(xhr.readyState === 4){
+            if(xhr.status === 200){
+                alert(` La persona con este id ${idPerson} fue eliminada señor stark`)
+                onGuestRequest()
+            }
+        }
+    });
+
+    let URL_FIREBASE = `https://koders-88d77-default-rtdb.firebaseio.com/equipoIvan/${idPerson}.json`;
+    if(idPerson) {
+        xhr.open('DELETE', URL_FIREBASE );
+        xhr.send();
+    }
+};
+onGuestRequest()
 
 
 
@@ -57,9 +107,8 @@ button.addEventListener('click', (event)=>{
     personList.push(person);
     console.log(personList)
     // aqui se tiene que hacer la peticion post
-    onPostRequest([person]);
-    person = {};
-    renderList()
+    onPostRequest(person);
+    // renderList()
 });
 
 const createLi = (person, index) => {
@@ -72,26 +121,24 @@ const createLi = (person, index) => {
     const button = document.createElement('button');
     button.classList.add('btn-danger');
     button.classList.add('btn');
-    button.setAttribute('data-index', index)
     button.textContent = 'Eliminar'
+    button.setAttribute('id', person.id)
     li.appendChild(button)
     button.addEventListener('click', (event) => {
-        const removeIndex = event.target.dataset.index;
-        personList.splice(removeIndex, 1);
-        renderList()
+        const removeId = event.target.id;
+        onDeleteRequest(removeId)
+        // renderList()
     });
 };
 
-const renderList = () => {
+const renderList = (personListNew) => {
     while(ul.children.length > 0) {
         ul.firstChild.remove()
     }
-    personList.forEach((person, index) => {
-        createLi(person, index)
+    personListNew.forEach((person) => {
+        createLi(person)
     });
 };
-
-renderList()
 document.body.appendChild(ul)
 
 
